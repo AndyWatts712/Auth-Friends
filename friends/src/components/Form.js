@@ -1,4 +1,5 @@
 import React, { useState} from 'react'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 export function Form() {
 
@@ -10,9 +11,18 @@ export function Form() {
             [e.target.name]: e.target.value
         })
     }
+
+    const handleSubmit = () => {
+        axiosWithAuth()
+        .post('api/friends', form)
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => console.log(err))
+    }
     return(
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <input
                     type='text'
                     name='name'
